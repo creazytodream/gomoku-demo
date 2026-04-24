@@ -34,7 +34,7 @@ class Game {
     this.DIFFICULTY_CONFIG = {
       easy:       { scoreMultiplier: 0.5, searchRange: 2, defenseFactor: 1.2 },
       hard:       { scoreMultiplier: 2.0, searchRange: 3, defenseFactor: 0.8 },
-      nightmare:  { scoreMultiplier: 10.0, searchRange: 5, defenseFactor: 0.5 },
+      nightmare:  { scoreMultiplier: 100.0, searchRange: 10, defenseFactor: 0.3 },
     };
 
     // 四个检测方向：[行步长, 列步长]
