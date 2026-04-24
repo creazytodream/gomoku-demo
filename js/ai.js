@@ -49,13 +49,17 @@ class AI {
 
     // 难度配置：评分倍率、搜索半径、防守系数
     this.DIFFICULTY_CONFIG = {
-      easy:   { scoreMultiplier: 0.5, searchRange: 1, defenseFactor: 1.2 },
-      medium: { scoreMultiplier: 1.0, searchRange: 2, defenseFactor: 0.9 },
-      hard:   { scoreMultiplier: 1.5, searchRange: 3, defenseFactor: 0.7 },
+      easy:       { scoreMultiplier: 0.3, searchRange: 1, defenseFactor: 1.5 },
+      normal:     { scoreMultiplier: 0.6, searchRange: 1, defenseFactor: 1.2 },
+      medium:     { scoreMultiplier: 1.0, searchRange: 2, defenseFactor: 0.9 },
+      hard:       { scoreMultiplier: 1.3, searchRange: 2, defenseFactor: 0.8 },
+      expert:     { scoreMultiplier: 1.6, searchRange: 3, defenseFactor: 0.7 },
+      master:     { scoreMultiplier: 2.0, searchRange: 3, defenseFactor: 0.6 },
+      nightmare:  { scoreMultiplier: 2.5, searchRange: 4, defenseFactor: 0.5 },
     };
 
-    // 默认中等难度
-    this.currentConfig = { ...this.DIFFICULTY_CONFIG.medium };
+    // 默认普通难度
+    this.currentConfig = { ...this.DIFFICULTY_CONFIG.normal };
   }
 
   /**

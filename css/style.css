@@ -321,52 +321,74 @@ body {
 /* ========================================
    难度选择器样式
    ======================================== */
-.difficulty-section .difficulty-selector {
-  display: flex;
-  gap: 8px;
-}
-
-.difficulty-btn {
-  flex: 1;
-  padding: 8px 4px;
+.difficulty-select {
+  width: 100%;
+  padding: 10px 12px;
   border: 1px solid var(--panel-border);
-  border-radius: 6px;
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.8rem;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  color: var(--text-primary);
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a0a0b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
 }
 
-.difficulty-btn:hover {
+.difficulty-select:hover {
   border-color: var(--primary);
-  color: var(--primary);
 }
 
-.difficulty-btn.active {
-  background: var(--primary);
+.difficulty-select:focus {
+  outline: none;
   border-color: var(--primary);
-  color: #fff;
-  font-weight: 600;
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.2);
 }
 
-.difficulty-btn[data-level="easy"].active {
-  background: #5cb85c;
-  border-color: #5cb85c;
-}
-
-.difficulty-btn[data-level="hard"].active {
-  background: #d9534f;
-  border-color: #d9534f;
+.difficulty-select option {
+  background: var(--panel-bg);
+  color: var(--text-primary);
+  padding: 8px;
 }
 
 /* ========================================
    响应式适配
    ======================================== */
 @media (max-width: 720px) {
+  body {
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+
+  .app-wrapper {
+    padding: 10px;
+  }
+
+  .app-header {
+    margin-bottom: 12px;
+  }
+
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+
   .game-container {
     flex-direction: column;
     align-items: center;
+    gap: 16px;
+  }
+
+  .board-wrapper {
+    width: calc(100vw - 20px);
+    max-width: 500px;
+  }
+
+  #gomokuCanvas {
+    width: 100%;
+    height: auto;
   }
 
   .control-panel {
@@ -374,13 +396,71 @@ body {
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 8px;
   }
 
   .panel-section {
     flex: 1 1 45%;
+    padding: 12px;
+  }
+
+  .current-turn {
+    flex: 1 1 100%;
+  }
+
+  .turn-indicator {
+    justify-content: center;
+  }
+
+  .turn-text {
+    font-size: 1.2rem;
+  }
+
+  .step-count {
+    font-size: 1.5rem;
   }
 
   .actions {
     flex-direction: row;
+    flex: 1 1 100%;
+  }
+
+  .actions .action-btn {
+    flex: 1;
+  }
+
+  .rules {
+    flex: 1 1 100%;
+  }
+
+  .difficulty-section {
+    flex: 1 1 100%;
+  }
+
+  .modal {
+    width: calc(100vw - 40px);
+    padding: 24px;
+  }
+
+  .modal-title {
+    font-size: 1.4rem;
+  }
+
+  .modal-icon {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .panel-section {
+    flex: 1 1 100%;
+  }
+
+  .mode-buttons {
+    flex-direction: row;
+  }
+
+  .mode-btn {
+    flex: 1;
   }
 }

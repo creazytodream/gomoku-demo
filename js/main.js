@@ -47,7 +47,13 @@
   const modalIcon   = document.getElementById('modalIcon');
   const modalRestart= document.getElementById('modalRestart');
   const turnStoneIcon = document.querySelector('.stone-icon');
-  const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+  const difficultySelect = document.getElementById('difficultySelect');
+
+  // 难度名称映射
+  const levelNames = {
+    easy: '简单', normal: '普通', medium: '中等',
+    hard: '困难', expert: '专家', master: '大师', nightmare: '噩梦'
+  };
 
   // ========================================
   // 首次渲染棋盘
@@ -156,15 +162,12 @@
     _restart();
   });
 
-  // 难度按钮事件绑定
-  difficultyBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const level = btn.dataset.level;
-      game.setDifficulty(level);
-      ai.setDifficulty(level);
-      _updateDifficultyUI(level);
-      _restart();
-    });
+  // 难度选择事件绑定
+  difficultySelect.addEventListener('change', () => {
+    const level = difficultySelect.value;
+    game.setDifficulty(level);
+    ai.setDifficulty(level);
+    _restart();
   });
 
   // ========================================
@@ -239,13 +242,11 @@
   }
 
   /**
-   * 更新难度按钮高亮状态
+   * 更新难度选择器状态
    * @param {string} level
    */
   function _updateDifficultyUI(level) {
-    difficultyBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.level === level);
-    });
+    difficultySelect.value = level;
   }
 
   /**
@@ -254,7 +255,6 @@
    * @param {string} nextLevel
    */
   function _showLevelUpModal(currentLevel, nextLevel) {
-    const levelNames = { easy: '简单', medium: '中等', hard: '困难' };
     modalIcon.textContent = '🎉';
     modalTitle.textContent = '🎉 恭喜过关！';
     modalDesc.innerHTML = `即将进入「${levelNames[nextLevel]}」模式`;
