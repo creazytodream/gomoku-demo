@@ -1,0 +1,386 @@
+/* ========================================
+   基础重置与全局变量
+   ======================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --board-color: #DEB887;       /* 棋盘原木色 */
+  --board-line: #8B6914;        /* 棋盘线颜色 */
+  --primary: #4A90D9;           /* 主色调 */
+  --primary-hover: #357ABD;
+  --secondary: #95A5A6;
+  --secondary-hover: #7F8C8D;
+  --danger: #E74C3C;
+  --bg: #1a1a2e;                /* 深色背景 */
+  --panel-bg: #16213e;          /* 面板背景 */
+  --panel-border: #0f3460;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0b0;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --radius: 12px;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========================================
+   整体容器
+   ======================================== */
+.app-wrapper {
+  width: 100%;
+  max-width: 960px;
+  padding: 20px;
+}
+
+/* ========================================
+   顶部标题
+   ======================================== */
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, #f5c518, #e0a800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+/* ========================================
+   游戏主区域
+   ======================================== */
+.game-container {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* ========================================
+   棋盘区域
+   ======================================== */
+.board-wrapper {
+  flex-shrink: 0;
+  background: var(--board-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow), inset 0 0 40px rgba(0,0,0,0.15);
+  overflow: hidden;
+  cursor: crosshair;
+  transition: box-shadow 0.2s;
+}
+
+.board-wrapper:hover {
+  box-shadow: 0 6px 30px rgba(0,0,0,0.5), inset 0 0 40px rgba(0,0,0,0.15);
+}
+
+#gomokuCanvas {
+  display: block;
+}
+
+/* ========================================
+   控制面板
+   ======================================== */
+.control-panel {
+  flex: 1;
+  min-width: 200px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-section {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.section-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+/* 当前回合 */
+.turn-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.stone-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.black-stone {
+  background: radial-gradient(circle at 35% 35%, #4a4a4a, #0a0a0a);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+}
+
+.white-stone {
+  background: radial-gradient(circle at 35% 35%, #ffffff, #cccccc);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  border: 1px solid #ddd;
+}
+
+/* 步数 */
+.step-count {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+}
+
+/* ========================================
+   模式切换按钮
+   ======================================== */
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mode-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mode-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.mode-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ========================================
+   操作按钮
+   ======================================== */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+.action-btn.primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.action-btn.primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 144, 217, 0.4);
+}
+
+.action-btn.secondary {
+  background: var(--secondary);
+  color: #fff;
+}
+
+.action-btn.secondary:hover {
+  background: var(--secondary-hover);
+  transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ========================================
+   规则说明
+   ======================================== */
+.rules ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rules ul li {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  padding-left: 14px;
+  position: relative;
+}
+
+.rules ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+/* ========================================
+   胜利弹窗
+   ======================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 20px;
+  padding: 40px 48px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transform: scale(0.85);
+  transition: transform 0.3s;
+}
+
+.modal-overlay.visible .modal {
+  transform: scale(1);
+}
+
+.modal-icon {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #f5c518;
+}
+
+.modal-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* ========================================
+   难度选择器样式
+   ======================================== */
+.difficulty-section .difficulty-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.difficulty-btn {
+  flex: 1;
+  padding: 8px 4px;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.difficulty-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.difficulty-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.difficulty-btn[data-level="easy"].active {
+  background: #5cb85c;
+  border-color: #5cb85c;
+}
+
+.difficulty-btn[data-level="hard"].active {
+  background: #d9534f;
+  border-color: #d9534f;
+}
+
+/* ========================================
+   响应式适配
+   ======================================== */
+@media (max-width: 720px) {
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .control-panel {
+    max-width: 100%;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .panel-section {
+    flex: 1 1 45%;
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+}

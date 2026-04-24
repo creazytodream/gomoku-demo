@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>五子棋 Gomoku</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- 顶部标题 -->
+    <header class="app-header">
+      <h1>♟ 五子棋</h1>
+    </header>
+
+    <!-- 主体区域 -->
+    <div class="game-container">
+
+      <!-- 棋盘 Canvas -->
+      <div class="board-wrapper">
+        <canvas id="gomokuCanvas"></canvas>
+      </div>
+
+      <!-- 控制面板 -->
+      <aside class="control-panel">
+
+        <!-- 当前回合 -->
+        <div class="panel-section current-turn">
+          <div class="section-title">当前回合</div>
+          <div class="turn-indicator">
+            <span class="stone-icon black-stone"></span>
+            <span id="turnText">黑方落子</span>
+          </div>
+        </div>
+
+        <!-- 步数统计 -->
+        <div class="panel-section">
+          <div class="section-title">步数</div>
+          <div class="step-count" id="stepCount">0</div>
+        </div>
+
+        <!-- 对战模式 -->
+        <div class="panel-section">
+          <div class="section-title">对战模式</div>
+          <div class="mode-buttons">
+            <button id="btnTwoPlayer" class="mode-btn active">双人对战</button>
+            <button id="btnVsAI" class="mode-btn">人机对战</button>
+          </div>
+        </div>
+
+        <!-- 难度选择 -->
+        <div class="panel-section difficulty-section">
+          <div class="section-title">难度</div>
+          <div class="difficulty-selector">
+            <button type="button" class="difficulty-btn" data-level="easy">简单</button>
+            <button type="button" class="difficulty-btn active" data-level="medium">中等</button>
+            <button type="button" class="difficulty-btn" data-level="hard">困难</button>
+          </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="panel-section actions">
+          <button id="btnUndo" class="action-btn secondary">↩ 悔棋</button>
+          <button id="btnRestart" class="action-btn primary">↺ 重新开始</button>
+        </div>
+
+        <!-- 游戏说明 -->
+        <div class="panel-section rules">
+          <div class="section-title">规则说明</div>
+          <ul>
+            <li>黑方先手</li>
+            <li>任意方向连成五子获胜</li>
+            <li>人机模式中玩家执黑</li>
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <!-- 胜利弹窗 -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-icon" id="modalIcon">🎉</div>
+      <h2 class="modal-title" id="modalTitle">黑方获胜！</h2>
+      <p class="modal-desc" id="modalDesc">共下 <span id="modalSteps">0</span> 步</p>
+      <button class="action-btn primary" id="modalRestart">再来一局</button>
+    </div>
+  </div>
+
+  <!-- JavaScript 模块（顺序加载） -->
+  <script src="js/board.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
