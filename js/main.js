@@ -51,8 +51,7 @@
 
   // 难度名称映射
   const levelNames = {
-    easy: '简单', normal: '普通', medium: '中等',
-    hard: '困难', expert: '专家', master: '大师', nightmare: '噩梦'
+    easy: '简单', hard: '困难', nightmare: '噩梦'
   };
 
   // ========================================
