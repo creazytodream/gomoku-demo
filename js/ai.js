@@ -51,7 +51,7 @@ class AI {
     this.DIFFICULTY_CONFIG = {
       easy:       { scoreMultiplier: 0.5, searchRange: 2, defenseFactor: 1.2 },
       hard:       { scoreMultiplier: 2.0, searchRange: 3, defenseFactor: 0.8 },
-      nightmare:  { scoreMultiplier: 100.0, searchRange: 10, defenseFactor: 0.3 },
+      nightmare:  { scoreMultiplier: 100.0, searchRange: 10, defenseFactor: 0.8 },
     };
 
     // 默认简单难度
